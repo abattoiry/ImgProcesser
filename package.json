@@ -3,13 +3,25 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "img-compare": "./bin/img-compare"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compare": "node bin/img-compare",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scan": "scan"
   },
   "author": "Brando.Wang",
   "license": "ISC",
   "devDependencies": {
     "glob": "^7.1.4",
+    "imagemin": "^6.1.0",
+    "imagemin-jpegtran": "^6.0.0",
+    "imagemin-pngquant": "^8.0.0",
     "resemblejs": "^3.1.0"
+  },
+  "imgProcessor": {
+    "compareDir": "./src",
+    "compareThreshold": 5
   }
 }
