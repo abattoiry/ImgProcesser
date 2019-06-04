@@ -59,6 +59,7 @@ const imgArrs = [];
   do {
     flag = true;
     const arr = []; // 一组相似图片
+    // 用来做对比的图片提取出来删除掉
     item = files.shift();
     for (let i = 0; i < files.length; i++) {
       const _item = files[i];
@@ -71,6 +72,7 @@ const imgArrs = [];
             flag = false;
           }
           arr.push(_item);
+          // 对比过相似的图片删除掉
           files.splice(i, 1);
           i--;
         }
@@ -85,7 +87,3 @@ const imgArrs = [];
   } while (item);
   console.log(`一共存在${imgArrs.length}组相似图片`);
 })()
-
-module.exports = {
-  imgCompare
-};
