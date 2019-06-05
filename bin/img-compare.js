@@ -1,10 +1,15 @@
+#!/usr/bin/env node
 /* eslint-disable */
 const { compare } = require('resemblejs');
 const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
+const processing = new (require('@hb/node-processing').get());
 
-const config = require(path.resolve(process.cwd(), 'package.json')).imgProcessor;
+config = Object.assign({
+  compareThreshold: 5,
+  compareDir: './src'
+}, require(path.resolve(process.cwd(), 'package.json')).imgProcessor);
 
 /*
   compareThreshold有两个作用：
@@ -12,7 +17,7 @@ const config = require(path.resolve(process.cwd(), 'package.json')).imgProcessor
   2. 当计算图片区别率时，超过这个值就不再计算了，可以极大的提高效率
   默认为5
 */
-const compareThreshold = config.compareThreshold || 5; 
+const compareThreshold = config.compareThreshold;
 
 const options = {
   scaleToSameSize: false,
@@ -37,9 +42,10 @@ function imgCompare(img1, img2) {
   });
 }
 
+processing.startWithCluster(run);
 // 所有相似图片组
 const imgArrs = [];
-(async function run() {
+async function run() {
   let files;
   // 获取图片路径
   try {
@@ -51,7 +57,7 @@ const imgArrs = [];
         resolve(data);
       })
     })
-  } catch (error) {
+  } catch (err) {
     console.log('glob error', err);
     return;
   }
@@ -85,5 +91,6 @@ const imgArrs = [];
       console.log('========================================')
     }
   } while (item);
+  processing.finish();
   console.log(`一共存在${imgArrs.length}组相似图片`);
-})()
+}

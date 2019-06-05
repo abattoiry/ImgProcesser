@@ -1,10 +1,10 @@
 {
-  "name": "img-inspector",
-  "version": "1.0.0",
+  "name": "@hb/img-processor",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "bin": {
-    "img-compare": "./bin/img-compare"
+    "img-compare": "./bin/img-compare.js"
   },
   "scripts": {
     "compare": "node bin/img-compare",
@@ -13,11 +13,9 @@
   },
   "author": "Brando.Wang",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "@hb/node-processing": "^0.0.3",
     "glob": "^7.1.4",
-    "imagemin": "^6.1.0",
-    "imagemin-jpegtran": "^6.0.0",
-    "imagemin-pngquant": "^8.0.0",
     "resemblejs": "^3.1.0"
   },
   "imgProcessor": {
