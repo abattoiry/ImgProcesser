@@ -4,7 +4,6 @@ const { compare } = require('resemblejs');
 const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
-const processing = new (require('@hb/node-processing').get());
 const config = require(path.resolve(process.cwd(), 'src/utils/config.js'));
 
 /*
@@ -38,7 +37,6 @@ function imgCompare(img1, img2) {
   });
 }
 
-processing.startWithCluster(run);
 // 所有相似图片组
 const imgArrs = [];
 async function run() {
@@ -87,7 +85,9 @@ async function run() {
       console.log('========================================')
     }
   } while (item);
-  processing.finish();
   console.log(`一共存在${imgArrs.length}组相似图片`);
   return imgArrs;
 }
+
+module.exports = run;
+

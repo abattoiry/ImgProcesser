@@ -19,7 +19,8 @@
     "resemblejs": "^3.1.0"
   },
   "imgProcessor": {
-    "compareDir": "./src",
+    "rdDir": "./test",
+    "compareDir": "./",
     "compareThreshold": 5
   }
 }
