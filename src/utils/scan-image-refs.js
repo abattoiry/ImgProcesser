@@ -7,8 +7,9 @@ async function scanImageRefs(callback) {
   const sourceFiles = await getFiles(config.rdDir, [], ['html']);
   // 获取所有相同图片
   sourceFiles.forEach(file => {
+    const imgs = [];
+    const originalImgs = [];
     const contents = fs.readFileSync(file, 'utf8');
-    console.log(contents)
     while ((result = URL_PIC_REG.exec(contents)) != null) {
       let imgPath = result[3];
       const originalImgPath = result[3];
@@ -29,8 +30,14 @@ async function scanImageRefs(callback) {
           console.log('不是本地链接：', imgPath);
           continue
       }
-      callback(originalImgPath, imgPath, file, contents);
+      // 不直接去写入文件，因为这里会出现一个文件被两次写入，造成一次被覆盖
+      imgs.push(imgPath);
+      originalImgs.push(originalImgPath);
     }
+    callback({
+      imgs: imgs,
+      originalImgs: originalImgs
+    }, file, contents);
   })
 }
 

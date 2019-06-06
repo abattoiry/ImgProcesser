@@ -11,8 +11,10 @@ function getAbsolutePath(imgPath) {
   }
 }
 
-function replaceContent(file, content, origin, current) {
-  content = content.replace(origin, current);
+function replaceContent(writeContent, file, content) {
+  writeContent.forEach((item) => {
+    content = content.replace(item.original, item.current);
+  })
   fs.writeFile(file, content, 'utf8', () => { });
 }
 
