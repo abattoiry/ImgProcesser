@@ -30,7 +30,6 @@ async function scanImageRefs(callback) {
         default:
           continue
       }
-      // 不直接去写入文件，因为这里会出现一个文件被两次写入，造成一次被覆盖
       imgs.push(Util.getAbsolutePath(imgPath));
       originalImgs.push(originalImgPath);
     }

@@ -12,7 +12,7 @@ const scanImageRefs = require('./utils/scan-image-refs');
   /**
    * scanImageRefs的回调，不是每个链接回调，而是每个文件回调
    *
-   * @param {*} imgData 多个文件的原始链接和处理后链接
+   * @param {*} imgData 一个文件中多个图片的原始链接和处理后链接
    * @param {*} file 文件名称
    * @param {*} content 文件内容
    */
@@ -20,12 +20,14 @@ const scanImageRefs = require('./utils/scan-image-refs');
     let writeImgs = [];
     // 遍历所有的相似图片组
     sameImgGroups.forEach((group) => {
+      // 所有路径都修改成相似图片组里第一张
+      // 此处可以改为最短的一个路径
       const replaceImg = group[0];
       // 遍历一个组里面的图片
-      group.forEach((item) => {
-        // 遍历要写入的一个文件里面所有的图片路径
+      group.forEach((sameImg) => {
+        // 遍历要写入文件里面所有的图片路径
         imgData.imgs.forEach((imgPath, index) => {
-          if (item === imgPath) {
+          if (sameImg === imgPath) {
             imgPath = replaceImg;
             writeImgs.push({
               current: imgPath,
