@@ -5,6 +5,7 @@ const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 const config = require(path.resolve(process.cwd(), 'src/utils/config.js'));
+const Util = require('./utils/util');
 
 /*
   compareThreshold有两个作用：
@@ -62,15 +63,16 @@ async function run() {
     // 用来做对比的图片提取出来删除掉
     item = files.shift();
     for (let i = 0; i < files.length; i++) {
-      const _item = files[i];
+      let _item = files[i];
       try {
         let res = await imgCompare(item, _item);
         if (res.rawMisMatchPercentage < compareThreshold) {
           if (flag) {
-            arr.push(item);
+            arr.push(Util.getAbsolutePath(item));
             imgArrs.push(arr);
             flag = false;
           }
+          _item = Util.getAbsolutePath(_item);
           arr.push(_item);
           // 对比过相似的图片删除掉
           files.splice(i, 1);

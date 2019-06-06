@@ -1,6 +1,7 @@
 const getFiles = require('./getFiles');
 const fs = require('fs');
 const path = require('path');
+const Util = require('./util');
 
 const URL_PIC_REG = /(require\(|url\(|[^:]src=)(\'|\")?(.*?(\.png|\.jpg))/g;
 async function scanImageRefs(callback) {
@@ -27,11 +28,10 @@ async function scanImageRefs(callback) {
           imgPath = path.resolve(config.scanPath, imgPath);
           break
         default:
-          console.log('不是本地链接：', imgPath);
           continue
       }
       // 不直接去写入文件，因为这里会出现一个文件被两次写入，造成一次被覆盖
-      imgs.push(imgPath);
+      imgs.push(Util.getAbsolutePath(imgPath));
       originalImgs.push(originalImgPath);
     }
     callback({
