@@ -21,6 +21,7 @@ const options = {
 };
 
 function imgCompare(img1, img2) {
+  console.log(img1, img2)
   return new Promise((resolve, reject) => {
     compare(
       fs.readFileSync(img1),
@@ -55,6 +56,7 @@ async function run() {
     console.log('glob error', err);
     return;
   }
+  console.log(files)
   let item, flag;
   do {
     flag = true;

@@ -3,13 +3,17 @@ const fs = require('fs');
 
 function getAbsolutePath(imgPath) {
   const fullPath = path.resolve(process.cwd());
-  return `${imgPath.replace(fullPath, '')}`;
+  const localPath = `${imgPath.replace(fullPath, '')}`;
+  if (localPath.startsWith('.')) {
+    return localPath.slice(1, localPath.length)
+  } else {
+    return localPath;
+  }
 }
 
 function replaceContent(file, content, origin, current) {
-  console.log('aaaaa', origin, current)
   content = content.replace(origin, current);
-  fs.writeFileSync(file, content, 'utf8');
+  fs.writeFile(file, content, 'utf8', () => { });
 }
 
 module.exports = {
