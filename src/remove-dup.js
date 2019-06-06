@@ -37,7 +37,9 @@ const scanImageRefs = require('./utils/scan-image-refs');
         })
       })
     })
-    // 一次性写入一个文件所有的路径修改
+    writeImgs.forEach((img) => {
+      img.current = Util.setRelativePath(file, img.current);
+    })
     Util.replaceContent(writeImgs, file, content);
   }
 })()

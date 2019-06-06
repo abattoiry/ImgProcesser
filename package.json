@@ -20,6 +20,7 @@
   },
   "imgProcessor": {
     "rdDir": "./test",
+    "rdImportMode": "",
     "compareDir": "./",
     "compareThreshold": 5
   }
