@@ -15,7 +15,7 @@ async function scanImageRefs(callback) {
       let imgPath = result[3];
       const originalImgPath = result[3];
       if (imgPath.startsWith('/')) {
-        imgPath = path.resolve(`.${imgPath}`);
+        imgPath = path.resolve(config.imgAbsoluteRoot, `.${imgPath}`);
       }
       switch (imgPath.slice(0, 2)) {
         case '@/':
