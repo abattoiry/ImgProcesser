@@ -14,6 +14,9 @@ async function scanImageRefs(callback) {
     while ((result = URL_PIC_REG.exec(contents)) != null) {
       let imgPath = result[3];
       const originalImgPath = result[3];
+      if (imgPath.startsWith('/')) {
+        imgPath = path.resolve(`.${imgPath}`);
+      }
       switch (imgPath.slice(0, 2)) {
         case '@/':
           imgPath = imgPath.slice(2);
@@ -28,7 +31,7 @@ async function scanImageRefs(callback) {
           imgPath = path.resolve(config.rdDir, imgPath);
           break
         default:
-          continue
+          break;
       }
       imgs.push(Util.getProjectAbsolutePath(imgPath));
       originalImgs.push(originalImgPath);
