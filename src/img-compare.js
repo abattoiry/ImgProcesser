@@ -13,7 +13,7 @@ const processing = new (require('@hb/node-processing'));
   2. 当计算图片区别率时，超过这个值就不再计算了，可以极大的提高效率
   默认为5
 */
-const compareThreshold = config.compareThreshold;
+const compareThreshold = config.compareThreshold + 1;
 
 const options = {
   scaleToSameSize: false,
