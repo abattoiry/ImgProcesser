@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const config = require(path.resolve(process.cwd(), 'src/utils/config.js'));
 
 function getProjectAbsolutePath(imgPath) {
   const localPath = `${imgPath.replace(path.resolve(process.cwd()), '')}`;

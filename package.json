@@ -1,20 +1,22 @@
 {
   "name": "@hb/img-processor",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "",
   "main": "index.js",
   "bin": {
-    "img-compare": "./bin/img-compare.js"
+    "img-compare": "./bin/img-compare.js",
+    "img-remove-dup": "./bin/img-remove-dup.js"
   },
   "scripts": {
     "compare": "node bin/img-compare",
+    "remove-dup": "node bin/img-remove-dup",
     "test": "echo \"Error: no test specified\" && exit 1",
     "scan": "scan"
   },
   "author": "Brando.Wang",
   "license": "ISC",
   "dependencies": {
-    "@hb/node-processing": "^0.0.3",
+    "@hb/node-processing": "^0.0.5",
     "glob": "^7.1.4",
     "resemblejs": "^3.1.0"
   },

@@ -2,7 +2,7 @@ const Util = require('./utils/util');
 const imgCompare = require('./img-compare');
 const scanImageRefs = require('./utils/scan-image-refs');
 
-(async function removeDuplicated() {
+async function run() {
   // 获取图片对比列表
   const sameImgGroups = await imgCompare();
   // 查找所有文件里面的img链接
@@ -41,4 +41,6 @@ const scanImageRefs = require('./utils/scan-image-refs');
     })
     Util.replaceContent(writeImgs, file, content);
   }
-})()
+}
+
+module.exports = run;

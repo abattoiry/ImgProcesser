@@ -2,7 +2,7 @@ const getFiles = require('./getFiles');
 const fs = require('fs');
 const path = require('path');
 const Util = require('./util');
-const config = require(path.resolve(process.cwd(), 'src/utils/config.js'));
+const config = require('./config');
 
 const URL_PIC_REG = /(require\(|url\(|[^:]src=)(\'|\")?(.*?(\.png|\.jpg))/g;
 async function scanImageRefs(callback) {
