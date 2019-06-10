@@ -2,11 +2,11 @@ const getFiles = require('./getFiles');
 const fs = require('fs');
 const path = require('path');
 const Util = require('./util');
+const config = require(path.resolve(process.cwd(), 'src/utils/config.js'));
 
 const URL_PIC_REG = /(require\(|url\(|[^:]src=)(\'|\")?(.*?(\.png|\.jpg))/g;
 async function scanImageRefs(callback) {
   const sourceFiles = await getFiles(config.rdDir, [], ['html']);
-  // 获取所有相同图片
   sourceFiles.forEach(file => {
     const imgs = [];
     const originalImgs = [];
@@ -17,7 +17,7 @@ async function scanImageRefs(callback) {
       switch (imgPath.slice(0, 2)) {
         case '@/':
           imgPath = imgPath.slice(2);
-          imgPath = path.resolve(config.scanPath, imgPath);
+          imgPath = path.resolve(config.rdDir, imgPath);
           break
         case '..':
         case './':
@@ -25,12 +25,12 @@ async function scanImageRefs(callback) {
           break
         case '~@':
           imgPath = imgPath.slice(3);
-          imgPath = path.resolve(config.scanPath, imgPath);
+          imgPath = path.resolve(config.rdDir, imgPath);
           break
         default:
           continue
       }
-      imgs.push(Util.getAbsolutePath(imgPath));
+      imgs.push(Util.getProjectAbsolutePath(imgPath));
       originalImgs.push(originalImgPath);
     }
     callback({

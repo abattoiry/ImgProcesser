@@ -68,11 +68,11 @@ async function run() {
         let res = await imgCompare(item, _item);
         if (res.rawMisMatchPercentage < compareThreshold) {
           if (flag) {
-            arr.push(Util.getAbsolutePath(item));
+            arr.push(Util.getProjectAbsolutePath(item));
             imgArrs.push(arr);
             flag = false;
           }
-          _item = Util.getAbsolutePath(_item);
+          _item = Util.getProjectAbsolutePath(_item);
           arr.push(_item);
           // 对比过相似的图片删除掉
           files.splice(i, 1);

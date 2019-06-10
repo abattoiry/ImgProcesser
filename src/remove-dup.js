@@ -1,4 +1,3 @@
-const { getPath } = require('./utils/getPath');
 const Util = require('./utils/util');
 const imgCompare = require('./img-compare');
 const scanImageRefs = require('./utils/scan-image-refs');
@@ -38,7 +37,7 @@ const scanImageRefs = require('./utils/scan-image-refs');
       })
     })
     writeImgs.forEach((img) => {
-      img.current = Util.setRelativePath(file, img.current);
+      img.current = Util.getImgRelativePathOfFile(file, img.current);
     })
     Util.replaceContent(writeImgs, file, content);
   }
