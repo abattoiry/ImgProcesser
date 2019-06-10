@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+/* eslint-disable */
 const Util = require('./utils/util');
 const imgCompare = require('./img-compare');
 const scanImageRefs = require('./utils/scan-image-refs');

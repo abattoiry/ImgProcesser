@@ -2,7 +2,6 @@ const glob = require('glob');
 
 async function getFiles(fileSource, excludeImageList = [], sufixList = ['png', 'jpg']) {
   const pattern = `${fileSource}/**/*.@(${sufixList.join('|')})`;
-
   return new Promise((resolve, reject) => {
     glob(pattern, {
       ignore: excludeImageList.map((img) => `${fileSource}/**/${img}`),

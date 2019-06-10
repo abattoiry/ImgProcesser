@@ -4,7 +4,7 @@ const fs = require('fs');
 function getProjectAbsolutePath(imgPath) {
   const localPath = `${imgPath.replace(path.resolve(process.cwd()), '')}`;
   if (localPath.startsWith('.')) {
-    return localPath.slice(1, localPath.length)
+    return localPath.slice(1, localPath.length);
   } else {
     return localPath;
   }
@@ -18,21 +18,25 @@ function getProjectAbsolutePath(imgPath) {
  * @returns
  */
 function getImgRelativePathOfFile(filePath, imgPath) {
-  const _filePath = path.resolve(process.cwd(), filePath);
-  const _imgPath = path.resolve(process.cwd(), `.${imgPath}`);
+
+  let _filePath = path.resolve(process.cwd(), filePath);
+  let _imgPath = path.resolve(process.cwd(), `.${imgPath}`);
   let dup = '';
-  Array.from(_filePath).forEach((char, index) => {
+  Array.from(_filePath).some((char, index) => {
     if (char === _imgPath[index]) {
       dup = dup + char;
+    } else {
+      return true;
     }
-  })
-  filePath = _filePath.replace(dup, '');
-  imgPath = _imgPath.replace(dup, '');
+  });
+
+  _filePath = _filePath.replace(dup, '');
+  _imgPath = _imgPath.replace(dup, '');
   let prefix = './';
-  for (let i = 0; i < filePath.split('/').length - 1; i++) {
-    prefix = prefix + '../'
+  for (let i = 0; i < _filePath.split('/').length - 1; i++) {
+    prefix = prefix + '../';
   }
-  return prefix + imgPath;
+  return prefix + _imgPath;
 }
 
 /**
@@ -45,7 +49,7 @@ function getImgRelativePathOfFile(filePath, imgPath) {
 function replaceContent(writeContent, file, content) {
   writeContent.forEach((item) => {
     content = content.replace(item.original, item.current);
-    console.log(`将文件${file}中的图片路径${item.original}修改为${item.current}`);
+    console.log(`将文件 \x1B[32m ${file} \u001b[39m 中的图片路径 \x1B[32m ${item.original} \u001b[39m 修改为 \x1B[32m ${item.current} \u001b[39m`);
   })
   fs.writeFileSync(file, content, 'utf8');
 }

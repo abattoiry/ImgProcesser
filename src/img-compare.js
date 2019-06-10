@@ -39,60 +39,62 @@ function imgCompare(img1, img2) {
 }
 
 function run() {
-  processing.startWithCluster(compare);
-  // 所有相似图片组
-  const imgArrs = [];
-  async function compare() {
-    let files;
-    // 获取图片路径
-    try {
-      files = await new Promise((resolve, reject) => {
-        glob(`${config.compareDir}/**/*.png`, (err, data) => {
-          if (err) {
-            reject(err);
-          }
-          resolve(data);
-        })
-      })
-    } catch (err) {
-      console.log('glob error', err);
-      return;
-    }
-    let item, flag;
-    do {
-      flag = true;
-      const arr = []; // 一组相似图片
-      // 用来做对比的图片提取出来删除掉
-      item = files.shift();
-      for (let i = 0; i < files.length; i++) {
-        let _item = files[i];
-        try {
-          let res = await imgCompare(item, _item);
-          if (res.rawMisMatchPercentage < compareThreshold) {
-            if (flag) {
-              arr.push(Util.getProjectAbsolutePath(item));
-              imgArrs.push(arr);
-              flag = false;
+  return new Promise((resolve, reject) => {
+    processing.startWithCluster(compare);
+    // 所有相似图片组
+    const imgArrs = [];
+    async function compare() {
+      let files;
+      // 获取图片路径
+      try {
+        files = await new Promise((resolve, reject) => {
+          glob(`${config.compareDir}!(node_modules)/**/*.png`, (err, data) => {
+            if (err) {
+              reject(err);
             }
-            _item = Util.getProjectAbsolutePath(_item);
-            arr.push(_item);
-            // 对比过相似的图片删除掉
-            files.splice(i, 1);
-            i--;
+            resolve(data);
+          })
+        })
+      } catch (err) {
+        console.log('glob error', err);
+        return;
+      }
+      let item, flag;
+      do {
+        flag = true;
+        const arr = []; // 一组相似图片
+        // 用来做对比的图片提取出来删除掉
+        item = files.shift();
+        for (let i = 0; i < files.length; i++) {
+          let _item = files[i];
+          try {
+            let res = await imgCompare(item, _item);
+            if (res.rawMisMatchPercentage < compareThreshold) {
+              if (flag) {
+                arr.push(Util.getProjectAbsolutePath(item));
+                imgArrs.push(arr);
+                flag = false;
+              }
+              _item = Util.getProjectAbsolutePath(_item);
+              arr.push(_item);
+              // 对比过相似的图片删除掉
+              files.splice(i, 1);
+              i--;
+            }
+          } catch (err) {
+            console.log('resemble compare error', err);
           }
-        } catch (err) {
-          console.log('resemble compare error', err);
         }
-      }
-      if (arr.length > 0) {
-        console.log(arr);
-        console.log('========================================')
-      }
-    } while (item);
-    console.log(`一共存在${imgArrs.length}组相似图片`);
-    processing.finish();
-    return imgArrs;
-  }
+        if (arr.length > 0) {
+          console.log(arr);
+          console.log('========================================')
+        }
+      } while (item);
+      console.log(`一共存在${imgArrs.length}组相似图片`);
+      processing.finish();
+      resolve(imgArrs);
+    }
+  })
 }
 
 module.exports = run;

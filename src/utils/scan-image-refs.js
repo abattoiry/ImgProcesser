@@ -6,7 +6,7 @@ const config = require('./config');
 
 const URL_PIC_REG = /(require\(|url\(|[^:]src=)(\'|\")?(.*?(\.png|\.jpg))/g;
 async function scanImageRefs(callback) {
-  const sourceFiles = await getFiles(config.rdDir, [], ['html']);
+  const sourceFiles = await getFiles(config.rdDir, [], ['html', 'axml']);
   sourceFiles.forEach(file => {
     const imgs = [];
     const originalImgs = [];
