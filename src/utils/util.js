@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const config = require('./config');
 
 function getProjectAbsolutePath(imgPath) {
   const localPath = `${imgPath.replace(path.resolve(process.cwd()), '')}`;
@@ -17,8 +18,7 @@ function getProjectAbsolutePath(imgPath) {
  * @param {*} imgPath 图片路径
  * @returns
  */
-function getImgRelativePathOfFile(filePath, imgPath) {
-
+function getRelativePathOfFile(filePath, imgPath) {
   let _filePath = path.resolve(process.cwd(), filePath);
   let _imgPath = path.resolve(process.cwd(), `.${imgPath}`);
   let dup = '';
@@ -40,6 +40,18 @@ function getImgRelativePathOfFile(filePath, imgPath) {
 }
 
 /**
+ * 返回图片的绝对路径，根据package.json的absoluteRoot字段
+ *
+ * @param {*} imgPath
+ * @returns
+ */
+function getAbsolutePath(imgPath) {
+  return path.resolve(`.${imgPath}`)
+    .replace(path.resolve(process.cwd()), '')
+    .replace(config.absoluteRoot.slice(1, config.absoluteRoot.length), '');
+}
+
+/**
  * 一次性写入一个文件的所有修改，同时修改一个文件会被覆盖
  *
  * @param {*} writeContent 一个列表包含所有修改的地方，将origin改成current
@@ -58,5 +70,6 @@ function replaceContent(writeContent, file, content) {
 module.exports = {
   getProjectAbsolutePath: getProjectAbsolutePath,
   replaceContent: replaceContent,
-  getImgRelativePathOfFile: getImgRelativePathOfFile
+  getRelativePathOfFile: getRelativePathOfFile,
+  getAbsolutePath: getAbsolutePath
 }

@@ -3,6 +3,7 @@
 const Util = require('./utils/util');
 const imgCompare = require('./img-compare');
 const scanImageRefs = require('./utils/scan-image-refs');
+const config = require('./utils/config');
 
 async function run() {
   // 获取图片对比列表
@@ -38,10 +39,15 @@ async function run() {
         })
       })
     })
+
     writeImgs.forEach((img) => {
-      img.current = Util.getImgRelativePathOfFile(file, img.current);
+      if (config.imgPathType !== 'absolute') {
+        img.current = Util.getRelativePathOfFile(img.current);
+      } else {
+        img.current = Util.getAbsolutePath(img.current);
+      }
     })
-    Util.replaceContent(writeImgs, file, content);
+    // Util.replaceContent(writeImgs, file, content);
   }
 }
 
