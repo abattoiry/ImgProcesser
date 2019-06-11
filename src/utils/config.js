@@ -24,5 +24,5 @@ config = Object.assign({
   compareThreshold: 1,
   compareDir: './src',
 }, importConfig);
-console.log(config)
+
 module.exports = config;

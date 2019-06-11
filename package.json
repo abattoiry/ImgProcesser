@@ -22,7 +22,7 @@
   },
   "imgProcessor": {
     "rdDir": "./test",
-    "absoluteRoot": "./test",
+    "absoluteRoot": "./",
     "imgPathType": "absolute",
     "compareDir": "./",
     "compareThreshold": 5

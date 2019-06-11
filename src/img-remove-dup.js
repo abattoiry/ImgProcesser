@@ -39,10 +39,9 @@ async function run() {
         })
       })
     })
-
     writeImgs.forEach((img) => {
       if (config.imgPathType !== 'absolute') {
-        img.current = Util.getRelativePathOfFile(img.current);
+        img.current = Util.getRelativePathOfFile(file, img.current);
       } else {
         img.current = Util.getAbsolutePath(img.current);
       }
