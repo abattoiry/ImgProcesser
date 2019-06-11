@@ -1,6 +1,6 @@
 {
   "name": "@hb/img-processor",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "description": "",
   "main": "index.js",
   "bin": {
