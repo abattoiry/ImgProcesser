@@ -90,7 +90,7 @@ function run() {
           console.log('========================================')
         }
       } while (item);
-      console.log(`一共存在${imgArrs.length}组相似图片`);
+      console.log(`一共存在\x1B[31m${imgArrs.length}\u001b[39m组相似图片`);
       processing.finish();
       resolve(imgArrs);
     }

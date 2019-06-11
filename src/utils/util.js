@@ -49,7 +49,8 @@ function getImgRelativePathOfFile(filePath, imgPath) {
 function replaceContent(writeContent, file, content) {
   writeContent.forEach((item) => {
     content = content.replace(item.original, item.current);
-    console.log(`将文件 \x1B[32m ${file} \u001b[39m 中的图片路径 \x1B[32m ${item.original} \u001b[39m 修改为 \x1B[32m ${item.current} \u001b[39m`);
+    console.log(`将文件 \x1B[33m ${file} \u001b[39m 中的图片路径 \x1B[34m ${item.original} \u001b[39m 修改为 \x1B[32m ${item.current} \u001b[39m`);
+    console.log('========================================');
   })
   fs.writeFileSync(file, content, 'utf8');
 }
