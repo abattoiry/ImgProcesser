@@ -46,9 +46,13 @@ function getRelativePathOfFile(filePath, imgPath) {
  * @returns
  */
 function getAbsolutePath(imgPath) {
-  return path.resolve(`.${imgPath}`)
-    .replace(path.resolve(process.cwd()), '')
-    .replace(config.absoluteRoot.slice(1, config.absoluteRoot.length), '');
+  let _path = path.resolve(`.${imgPath}`)
+  .replace(path.resolve(process.cwd()), '')
+  .replace(config.absoluteRoot.slice(1, config.absoluteRoot.length), '');
+  if (config.absoluteRoot === './') {
+    _path = '/' + _path;
+  }
+  return _path;
 }
 
 /**

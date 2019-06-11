@@ -2,7 +2,7 @@ const path = require('path');
 
 const importConfig = require(path.resolve(process.cwd(), 'package.json')).imgProcessor;
 
-// 处理链接
+// 处理路径
 for (let key in importConfig) {
   let value = importConfig[key];
   // 去掉多余的 / 结尾

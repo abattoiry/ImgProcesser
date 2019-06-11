@@ -47,7 +47,7 @@ async function run() {
         img.current = Util.getAbsolutePath(img.current);
       }
     })
-    // Util.replaceContent(writeImgs, file, content);
+    Util.replaceContent(writeImgs, file, content);
   }
 }
 

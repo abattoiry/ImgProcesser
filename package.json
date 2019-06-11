@@ -21,10 +21,10 @@
     "resemblejs": "^3.1.0"
   },
   "imgProcessor": {
-    "rdDir": "./",
+    "rdDir": "./test",
     "absoluteRoot": "./test",
     "imgPathType": "absolute",
-    "compareDir": "",
+    "compareDir": "./",
     "compareThreshold": 5
   }
 }
